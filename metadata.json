@@ -1,0 +1,6 @@
+{
+  "name": "Invernadero Futura - Gestión de Almacén",
+  "description": "Sistema de gestión integral de almacén e inventarios con control por roles, registro obligatorio de folio, trazabilidad y PWA.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
