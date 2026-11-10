@@ -71,38 +71,38 @@ export const LocationsModule: React.FC<LocationsModuleProps> = ({
       {/* Encabezado */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#087DCD]">
             <MapPin className="w-4 h-4" />
             <span>Módulo Operativo</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 mt-0.5">
-            Ubicaciones y Pasillos
+            Ubicaciones, Racks y Tarimas
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Asignación y consulta rápida del lugar físico de guardado (pasillo, anaquel/rack, estante y código de posición).
+            Asignación y consulta rápida del lugar físico de guardado (área de planta, pasillo, tarima/rack, estante y código de posición).
           </p>
         </div>
 
         {/* Zona resumen */}
-        <div className="flex items-center gap-2 text-xs text-slate-600 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
-          <Boxes className="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>{products.length} artículos ubicados en sistema</span>
+        <div className="flex items-center gap-2 text-xs text-slate-700 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
+          <Boxes className="w-4 h-4 text-[#087DCD] shrink-0" />
+          <span>{products.length} artículos ubicados en planta</span>
         </div>
       </div>
 
       {/* Filtros rápidos por Bodega / Zona */}
       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
         <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
-          <span className="text-xs font-semibold text-slate-500 whitespace-nowrap">Bodega:</span>
+          <span className="text-xs font-semibold text-slate-500 whitespace-nowrap">Área:</span>
           <button
             onClick={() => setSelectedZone('Todos')}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
               selectedZone === 'Todos'
-                ? 'bg-emerald-700 text-white'
+                ? 'bg-black text-white'
                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
             }`}
           >
-            Todas las Bodegas
+            Todas las Áreas
           </button>
           {WAREHOUSE_ZONES.map((zone) => (
             <button
@@ -110,7 +110,7 @@ export const LocationsModule: React.FC<LocationsModuleProps> = ({
               onClick={() => setSelectedZone(zone)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
                 selectedZone === zone
-                  ? 'bg-emerald-700 text-white'
+                  ? 'bg-[#087DCD] text-white'
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
@@ -126,7 +126,7 @@ export const LocationsModule: React.FC<LocationsModuleProps> = ({
             placeholder="Buscar por SKU, pasillo o bin code..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
+            className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
           />
         </div>
       </div>
@@ -143,7 +143,7 @@ export const LocationsModule: React.FC<LocationsModuleProps> = ({
             >
               <div>
                 <div className="flex items-start justify-between gap-2 mb-2">
-                  <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">
+                  <span className="text-xs font-mono font-bold text-[#087DCD] bg-[#087DCD]/10 px-2 py-0.5 rounded-md border border-[#087DCD]/20">
                     {p.sku}
                   </span>
                   <span className="text-xs font-bold text-slate-900 font-mono tabular-nums">
@@ -158,7 +158,7 @@ export const LocationsModule: React.FC<LocationsModuleProps> = ({
                 {isEditing ? (
                   <div className="space-y-2 pt-2 border-t border-slate-100 animate-in fade-in">
                     <div>
-                      <label className="text-[10px] font-semibold text-slate-500">Bodega / Nave</label>
+                      <label className="text-[10px] font-semibold text-slate-500">Área de Planta</label>
                       <select
                         value={editZone}
                         onChange={(e) => setEditZone(e.target.value)}
@@ -180,7 +180,7 @@ export const LocationsModule: React.FC<LocationsModuleProps> = ({
                         />
                       </div>
                       <div>
-                        <label className="text-[10px] font-semibold text-slate-500">Anaquel / Rack</label>
+                        <label className="text-[10px] font-semibold text-slate-500">Tarima / Rack</label>
                         <input
                           type="text"
                           value={editRack}
@@ -238,7 +238,7 @@ export const LocationsModule: React.FC<LocationsModuleProps> = ({
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => handleSaveEdit(p.id)}
-                      className="p-1.5 bg-emerald-700 text-white rounded-lg hover:bg-emerald-800 transition"
+                      className="p-1.5 bg-[#087DCD] text-white rounded-lg hover:bg-[#0667a9] transition"
                       title="Guardar ubicación"
                     >
                       <Check className="w-3.5 h-3.5" />
@@ -254,7 +254,7 @@ export const LocationsModule: React.FC<LocationsModuleProps> = ({
                 ) : (
                   <button
                     onClick={() => handleStartEdit(p)}
-                    className="flex items-center gap-1 px-2.5 py-1 text-xs text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition"
+                    className="flex items-center gap-1 px-2.5 py-1 text-xs text-slate-700 hover:text-[#087DCD] hover:bg-[#087DCD]/10 rounded-lg transition"
                   >
                     <Edit3 className="w-3 h-3" />
                     <span>Reubicar</span>

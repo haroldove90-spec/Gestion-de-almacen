@@ -8,8 +8,7 @@ import {
   Edit3, 
   Boxes, 
   CheckCircle2, 
-  AlertCircle,
-  Tag
+  AlertCircle
 } from 'lucide-react';
 import { WAREHOUSE_ZONES } from '../../data/mockData';
 
@@ -32,17 +31,17 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
   const [sku, setSku] = useState('');
   const [barcode, setBarcode] = useState('');
   const [name, setName] = useState('');
-  const [category, setCategory] = useState<Product['category']>('Fertilizantes y Nutrientes');
-  const [unit, setUnit] = useState<Product['unit']>('Saco 50kg');
+  const [category, setCategory] = useState<Product['category']>('Garrafones y Envases');
+  const [unit, setUnit] = useState<Product['unit']>('Pieza');
   const [cost, setCost] = useState<number | ''>('');
   const [stock, setStock] = useState<number | ''>(0);
-  const [minStock, setMinStock] = useState<number | ''>(20);
-  const [maxStock, setMaxStock] = useState<number | ''>(100);
+  const [minStock, setMinStock] = useState<number | ''>(50);
+  const [maxStock, setMaxStock] = useState<number | ''>(500);
   const [warehouseZone, setWarehouseZone] = useState(WAREHOUSE_ZONES[0]);
   const [aisle, setAisle] = useState('Pasillo A');
-  const [rack, setRack] = useState('Rack R-01');
+  const [rack, setRack] = useState('Tarima T-01');
   const [shelf, setShelf] = useState('Nivel 1');
-  const [binCode, setBinCode] = useState('A-01-N1');
+  const [binCode, setBinCode] = useState('A-T01-N1');
 
   const [formError, setFormError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -68,13 +67,13 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
 
   const handleNew = () => {
     setEditingProduct(null);
-    setSku(`INV-${category.slice(0, 3).toUpperCase()}-${Math.floor(100 + Math.random() * 900)}`);
-    setBarcode(`750105530${Math.floor(1000 + Math.random() * 9000)}`);
+    setSku(`BOR-${category.slice(0, 3).toUpperCase()}-${Math.floor(100 + Math.random() * 900)}`);
+    setBarcode(`750302480${Math.floor(1000 + Math.random() * 9000)}`);
     setName('');
     setCost('');
     setStock(0);
-    setMinStock(20);
-    setMaxStock(100);
+    setMinStock(50);
+    setMaxStock(500);
     setShowForm(true);
   };
 
@@ -93,7 +92,6 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
     }
 
     if (editingProduct) {
-      // Update
       onUpdateProduct(editingProduct.id, {
         sku: sku.trim(),
         barcode: barcode.trim(),
@@ -115,10 +113,9 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
 
       setSuccessMessage(`Artículo ${sku} actualizado con éxito en el Catálogo Maestro.`);
     } else {
-      // Add
       onAddProduct({
         sku: sku.trim(),
-        barcode: barcode.trim() || `750105530${Math.floor(1000 + Math.random() * 9000)}`,
+        barcode: barcode.trim() || `750302480${Math.floor(1000 + Math.random() * 9000)}`,
         name: name.trim(),
         category,
         unit,
@@ -132,7 +129,7 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
           aisle,
           rack,
           shelf,
-          binCode: binCode || 'A-01-N1',
+          binCode: binCode || 'A-T01-N1',
         },
       });
 
@@ -157,21 +154,21 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
       {/* Encabezado */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-amber-700">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#087DCD]">
             <PackageCheck className="w-4 h-4" />
-            <span>Nivel Estratégico / Administración</span>
+            <span>Nivel Estratégico / Dirección</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 mt-0.5">
-            Catálogo Maestro de Productos
+            Catálogo Maestro de Productos y Presentaciones
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Administración de artículos: SKU, código de barras, categorías agrícolas, unidades de medida y costos base.
+            Administración de garrafones, botellas pet, tapas herméticas, sellos termoencogibles y consumibles de purificación.
           </p>
         </div>
 
         <button
           onClick={handleNew}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-700 text-white rounded-xl text-xs font-semibold hover:bg-amber-800 transition shadow-xs shrink-0"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#087DCD] text-white rounded-xl text-xs font-semibold hover:bg-[#0667a9] transition shadow-xs shrink-0"
         >
           <Plus className="w-4 h-4" />
           <span>Nuevo Artículo</span>
@@ -179,8 +176,8 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
       </div>
 
       {successMessage && (
-        <div className="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl text-xs font-semibold">
-          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+        <div className="flex items-center gap-3 p-4 bg-[#087DCD]/10 border border-[#087DCD]/30 text-slate-900 rounded-xl text-xs font-semibold">
+          <CheckCircle2 className="w-5 h-5 text-[#087DCD] shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
@@ -190,8 +187,8 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm animate-in fade-in duration-200">
           <div className="pb-4 mb-5 border-b border-slate-100 flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <Boxes className="w-4 h-4 text-amber-600" />
-              <span>{editingProduct ? 'Editar Artículo de Catálogo' : 'Alta de Nuevo Artículo'}</span>
+              <Boxes className="w-4 h-4 text-[#087DCD]" />
+              <span>{editingProduct ? 'Editar Artículo de Catálogo' : 'Alta de Nuevo Artículo / Presentación'}</span>
             </h3>
             <span className="text-xs font-mono font-bold text-slate-500">{sku}</span>
           </div>
@@ -213,7 +210,7 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
                   type="text"
                   value={sku}
                   onChange={(e) => setSku(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg font-mono font-bold focus:outline-none focus:ring-2 focus:ring-amber-600"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg font-mono font-bold focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                   required
                 />
               </div>
@@ -228,26 +225,25 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
                     type="text"
                     value={barcode}
                     onChange={(e) => setBarcode(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-lg font-mono focus:outline-none focus:ring-2 focus:ring-amber-600"
+                    className="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-lg font-mono focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                   />
                 </div>
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Categoría del Insumo *
+                  Categoría del Insumo / Producto *
                 </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value as Product['category'])}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                 >
-                  <option value="Semillas y Plántulas">Semillas y Plántulas</option>
-                  <option value="Fertilizantes y Nutrientes">Fertilizantes y Nutrientes</option>
-                  <option value="Sustratos y Enmiendas">Sustratos y Enmiendas</option>
-                  <option value="Riego y Tuberías">Riego y Tuberías</option>
-                  <option value="Material de Empaque">Material de Empaque</option>
-                  <option value="Herramientas y EPP">Herramientas y EPP</option>
+                  <option value="Garrafones y Envases">Garrafones y Envases</option>
+                  <option value="Tapas, Sellos y Empaque">Tapas, Sellos y Empaque</option>
+                  <option value="Botellas Pet y Presentaciones Menores">Botellas Pet y Presentaciones Menores</option>
+                  <option value="Químicos y Consumibles de Filtración">Químicos y Consumibles de Filtración</option>
+                  <option value="Refacciones y Equipamiento de Purificación">Refacciones y Equipamiento de Purificación</option>
                 </select>
               </div>
             </div>
@@ -258,10 +254,10 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
               </label>
               <input
                 type="text"
-                placeholder="ej. Nitrato de Potasio Cristalino Alta Pureza (Saco 25kg)"
+                placeholder="ej. Garrafón 19 Litros Policarbonato Grado Alimenticio Azul"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600"
+                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                 required
               />
             </div>
@@ -274,14 +270,14 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
                 <select
                   value={unit}
                   onChange={(e) => setUnit(e.target.value as Product['unit'])}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                 >
-                  <option value="Kilogramo">Kilogramo</option>
-                  <option value="Litro">Litro</option>
-                  <option value="Saco 50kg">Saco 50kg</option>
                   <option value="Pieza">Pieza</option>
-                  <option value="Charola 200 cav">Charola 200 cav</option>
-                  <option value="Rollo 100m">Rollo 100m</option>
+                  <option value="Caja">Caja</option>
+                  <option value="Paquete">Paquete</option>
+                  <option value="Rollo">Rollo</option>
+                  <option value="Saco 25kg">Saco 25kg</option>
+                  <option value="Garrafa 20L">Garrafa 20L</option>
                 </select>
               </div>
 
@@ -296,21 +292,21 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
                   placeholder="0.00"
                   value={cost}
                   onChange={(e) => setCost(e.target.value === '' ? '' : Number(e.target.value))}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg font-mono tabular-nums focus:outline-none focus:ring-2 focus:ring-amber-600 font-bold"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg font-mono tabular-nums focus:outline-none focus:ring-2 focus:ring-[#087DCD] font-bold"
                   required
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Stock Mínimo (Reorden)
+                  Stock Mínimo (Punto Reorden)
                 </label>
                 <input
                   type="number"
                   min="0"
                   value={minStock}
                   onChange={(e) => setMinStock(e.target.value === '' ? '' : Number(e.target.value))}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg font-mono focus:outline-none focus:ring-2 focus:ring-amber-600"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg font-mono focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                 />
               </div>
 
@@ -323,7 +319,7 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
                   min="0"
                   value={maxStock}
                   onChange={(e) => setMaxStock(e.target.value === '' ? '' : Number(e.target.value))}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg font-mono focus:outline-none focus:ring-2 focus:ring-amber-600"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg font-mono focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                 />
               </div>
             </div>
@@ -341,7 +337,7 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 bg-amber-700 text-white rounded-lg text-xs font-semibold hover:bg-amber-800 transition shadow-xs"
+                className="px-5 py-2 bg-[#087DCD] text-white rounded-lg text-xs font-semibold hover:bg-[#0667a9] transition shadow-xs"
               >
                 {editingProduct ? 'Guardar Cambios' : 'Registrar en Catálogo'}
               </button>
@@ -354,9 +350,9 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
       <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
         <div className="p-4 border-b border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h3 className="text-sm font-bold text-slate-900">Artículos Registrados en el Sistema</h3>
+            <h3 className="text-sm font-bold text-slate-900">Artículos y Presentaciones en Catálogo</h3>
             <span className="text-xs text-slate-500">
-              {filteredProducts.length} productos en catálogo
+              {filteredProducts.length} productos registrados
             </span>
           </div>
 
@@ -364,10 +360,10 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
             <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
             <input
               type="text"
-              placeholder="Buscar por SKU, nombre o código..."
+              placeholder="Buscar por SKU, descripción o código..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600"
+              className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
             />
           </div>
         </div>
@@ -377,7 +373,7 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold uppercase tracking-wider text-[11px]">
                 <th className="py-3 px-4">SKU / Código</th>
-                <th className="py-3 px-4">Artículo</th>
+                <th className="py-3 px-4">Artículo / Presentación</th>
                 <th className="py-3 px-4">Categoría</th>
                 <th className="py-3 px-4">Unidad</th>
                 <th className="py-3 px-4 text-right">Costo Base</th>
@@ -390,7 +386,7 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
               {filteredProducts.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="py-8 text-center text-slate-400">
-                    No se encontraron productos.
+                    No se encontraron productos con ese criterio.
                   </td>
                 </tr>
               ) : (
@@ -424,7 +420,7 @@ export const CatalogModule: React.FC<CatalogModuleProps> = ({
                     <td className="py-3 px-4 text-center">
                       <button
                         onClick={() => handleStartEdit(p)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 text-slate-700 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 text-slate-700 hover:text-[#087DCD] hover:bg-[#087DCD]/10 rounded-lg transition"
                       >
                         <Edit3 className="w-3.5 h-3.5" />
                         <span className="text-[11px]">Editar</span>

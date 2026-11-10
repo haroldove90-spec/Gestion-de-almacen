@@ -3,12 +3,11 @@ import { Product, StockAdjustment } from '../../types/warehouse';
 import { 
   Scale, 
   Plus, 
-  FileCheck, 
   AlertCircle, 
   CheckCircle2, 
-  Search,
-  ShieldCheck,
-  FileSignature
+  Search, 
+  ShieldCheck, 
+  FileSignature 
 } from 'lucide-react';
 
 interface AdjustmentsModuleProps {
@@ -35,7 +34,7 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
   // Form fields
   const [actaFolio, setActaFolio] = useState('');
   const [productId, setProductId] = useState('');
-  const [type, setType] = useState<StockAdjustment['type']>('Merma por caducidad/humedad');
+  const [type, setType] = useState<StockAdjustment['type']>('Merma por garrafón roto / fisura');
   const [direction, setDirection] = useState<'resta' | 'suma'>('resta');
   const [quantity, setQuantity] = useState<number | ''>('');
   const [justification, setJustification] = useState('');
@@ -116,15 +115,15 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
       {/* Encabezado */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-blue-700">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#087DCD]">
             <Scale className="w-4 h-4" />
             <span>Módulo Táctico / Supervisión</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 mt-0.5">
-            Ajustes de Inventario y Mermas
+            Ajustes de Inventario y Mermas de Envase
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Autorización formal de mermas, pérdidas, productos dañados o correcciones de conteo con justificación obligatoria y acta foliada.
+            Autorización formal de mermas (garrafones rotos, fugas de liner, tapas dañadas) con justificación obligatoria y acta foliada.
           </p>
         </div>
 
@@ -133,7 +132,7 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
             setShowForm(!showForm);
             setFormError('');
           }}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-700 text-white rounded-xl text-xs font-semibold hover:bg-blue-800 transition shadow-xs shrink-0"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#087DCD] text-white rounded-xl text-xs font-semibold hover:bg-[#0667a9] transition shadow-xs shrink-0"
         >
           {showForm ? (
             <span>Ver Actas</span>
@@ -147,8 +146,8 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
       </div>
 
       {successMessage && (
-        <div className="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl text-xs font-semibold">
-          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+        <div className="flex items-center gap-3 p-4 bg-[#087DCD]/10 border border-[#087DCD]/30 text-slate-900 rounded-xl text-xs font-semibold">
+          <CheckCircle2 className="w-5 h-5 text-[#087DCD] shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
@@ -158,10 +157,10 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm animate-in fade-in duration-200">
           <div className="pb-4 mb-5 border-b border-slate-100 flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <FileSignature className="w-4 h-4 text-blue-600" />
+              <FileSignature className="w-4 h-4 text-[#087DCD]" />
               <span>Emisión de Acta Formal de Ajuste de Existencias</span>
             </h3>
-            <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+            <span className="text-[11px] font-semibold text-[#087DCD] bg-[#087DCD]/10 px-2 py-0.5 rounded-md border border-[#087DCD]/20">
               Autorización Táctica Requerida
             </span>
           </div>
@@ -184,7 +183,7 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
                   placeholder="ej. ACTA-AJU-043"
                   value={actaFolio}
                   onChange={(e) => setActaFolio(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] font-mono"
                   required
                 />
                 <span className="text-[10px] text-slate-400">Documento legal de respaldo interno</span>
@@ -197,11 +196,12 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
                 <select
                   value={type}
                   onChange={(e) => setType(e.target.value as StockAdjustment['type'])}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                 >
-                  <option value="Merma por caducidad/humedad">Merma por caducidad / humedad</option>
-                  <option value="Daño en maniobra">Producto dañado en maniobra</option>
+                  <option value="Merma por garrafón roto / fisura">Merma por garrafón roto / fisura</option>
+                  <option value="Fuga o defecto de sellado / tapa">Fuga o defecto de sellado / tapa</option>
                   <option value="Corrección por conteo cíclico">Corrección por conteo cíclico</option>
+                  <option value="Daño en maniobra o ruta">Daño en maniobra o ruta de reparto</option>
                   <option value="Faltante no justificado">Faltante o merma no justificada</option>
                 </select>
               </div>
@@ -214,7 +214,7 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
                   type="text"
                   value={supervisorName}
                   onChange={(e) => setSupervisorName(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 bg-slate-50"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-slate-50"
                   required
                 />
               </div>
@@ -223,12 +223,12 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
               <div className="md:col-span-2">
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Artículo / Producto a Ajustar *
+                  Artículo o Envase a Ajustar *
                 </label>
                 <select
                   value={productId}
                   onChange={(e) => setProductId(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                   required
                 >
                   <option value="">-- Seleccionar producto --</option>
@@ -248,7 +248,7 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
                   <select
                     value={direction}
                     onChange={(e) => setDirection(e.target.value as 'resta' | 'suma')}
-                    className="w-full px-2 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white font-semibold"
+                    className="w-full px-2 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white font-semibold"
                   >
                     <option value="resta">Disminución (-)</option>
                     <option value="suma">Incremento (+)</option>
@@ -266,7 +266,7 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
                     placeholder="0"
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value === '' ? '' : Number(e.target.value))}
-                    className="w-full px-2 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono font-bold"
+                    className="w-full px-2 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] font-mono font-bold"
                     required
                   />
                 </div>
@@ -274,13 +274,13 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
             </div>
 
             {selectedProduct && quantity && Number(quantity) > 0 && (
-              <div className="p-3 bg-blue-50/70 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-center justify-between">
+              <div className="p-3 bg-[#087DCD]/10 border border-[#087DCD]/30 rounded-xl text-xs text-slate-900 flex items-center justify-between">
                 <span>
                   <strong>Ajuste resultante en kardex:</strong> De {selectedProduct.stock} a{' '}
                   {direction === 'resta' ? selectedProduct.stock - Number(quantity) : selectedProduct.stock + Number(quantity)}{' '}
                   {selectedProduct.unit}
                 </span>
-                <span className="font-mono font-bold">
+                <span className="font-mono font-bold text-[#087DCD]">
                   Impacto neto: {direction === 'resta' ? '-' : '+'}{quantity} {selectedProduct.unit}
                 </span>
               </div>
@@ -293,14 +293,14 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
               </label>
               <textarea
                 rows={3}
-                placeholder="Explique las causas técnicas del ajuste: número de lote, causa física del daño, reporte de inspección fitosanitaria, etc."
+                placeholder="Explique las causas técnicas: envase fisurado en descarga, falla de termosellado, descarte por control de calidad, etc."
                 value={justification}
                 onChange={(e) => setJustification(e.target.value)}
-                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                 required
               />
               <span className="text-[10px] text-slate-400">
-                La justificación quedará anexada formalmente a la auditoría del kardex.
+                La justificación quedará anexada formalmente a la auditoría del kardex de Borneo.
               </span>
             </div>
 
@@ -314,7 +314,7 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 bg-blue-700 text-white rounded-lg text-xs font-semibold hover:bg-blue-800 transition shadow-xs flex items-center gap-1.5"
+                className="px-5 py-2 bg-[#087DCD] text-white rounded-lg text-xs font-semibold hover:bg-[#0667a9] transition shadow-xs flex items-center gap-1.5"
               >
                 <ShieldCheck className="w-4 h-4" />
                 <span>Firmar y Autorizar Acta de Ajuste</span>
@@ -341,7 +341,7 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
               placeholder="Buscar por acta, producto o motivo..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
             />
           </div>
         </div>
@@ -385,7 +385,7 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
                       </span>
                     </td>
                     <td className="py-3 px-4 text-right font-mono font-bold tabular-nums">
-                      <span className={adj.adjustmentQuantity > 0 ? 'text-emerald-700' : 'text-rose-700'}>
+                      <span className={adj.adjustmentQuantity > 0 ? 'text-[#087DCD]' : 'text-rose-700'}>
                         {adj.adjustmentQuantity > 0 ? `+${adj.adjustmentQuantity}` : adj.adjustmentQuantity}
                       </span>
                     </td>
@@ -394,7 +394,7 @@ export const AdjustmentsModule: React.FC<AdjustmentsModuleProps> = ({
                     </td>
                     <td className="py-3 px-4 text-slate-700 text-[11px]">
                       <div className="flex items-center gap-1 font-medium">
-                        <ShieldCheck className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                        <ShieldCheck className="w-3.5 h-3.5 text-[#087DCD] shrink-0" />
                         <span>{adj.approvedBySupervisor}</span>
                       </div>
                     </td>

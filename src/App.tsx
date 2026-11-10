@@ -55,11 +55,10 @@ export default function App() {
 
   // 2. Aplicación Principal con Cabecera Institucional Unificada, Menú Lateral Desplegable y Bottom Bar
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
+    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 selection:bg-[#087DCD]/20 selection:text-black">
       {/* Cabecera Institucional Unificada */}
       <UnifiedHeader
         currentRole={currentRole}
-        onSelectRole={selectRole}
         onLogout={logout}
         isSidebarOpen={isSidebarOpen}
         onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}

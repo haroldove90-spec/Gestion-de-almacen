@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
+@theme {
+  --color-borneo-blue: #087DCD;
+  --color-borneo-blue-hover: #0667a9;
+  --color-borneo-blue-light: #e7f4fc;
+  --color-borneo-dark: #000000;
+}
+
 :root {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   color-scheme: light;
+  --primary-blue: #087DCD;
+  --primary-black: #000000;
 }
 
 body {

@@ -42,7 +42,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
   const allModuleDefinitions: Record<ModuleId, { label: string; icon: React.ReactNode }> = {
     entradas: { label: 'Entradas', icon: <ArrowDownToLine className="w-5 h-5" /> },
     salidas: { label: 'Salidas', icon: <ArrowUpFromLine className="w-5 h-5" /> },
-    ubicaciones: { label: 'Ubicación', icon: <MapPin className="w-5 h-5" /> },
+    ubicaciones: { label: 'Racks', icon: <MapPin className="w-5 h-5" /> },
     conteo: { label: 'Conteo', icon: <RefreshCw className="w-5 h-5" /> },
     ajustes: { label: 'Ajustes', icon: <Scale className="w-5 h-5" /> },
     kardex: { label: 'Kardex', icon: <ScrollText className="w-5 h-5" /> },
@@ -53,7 +53,6 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
     usuarios: { label: 'Usuarios', icon: <Users2 className="w-5 h-5" /> },
   };
 
-  // Get primary 4 modules for the active role + "Más" button if > 4
   const allowed = currentRoleObj.allowedModules;
   const primaryModules: BottomBarItem[] = allowed.slice(0, 4).map((id) => ({
     id,
@@ -80,7 +79,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
               key={item.id}
               onClick={() => handleSelect(item.id)}
               className={`flex flex-col items-center justify-center flex-1 py-1 min-h-[44px] transition-colors relative ${
-                isActive ? 'text-emerald-700 font-bold' : 'text-slate-500 hover:text-slate-900'
+                isActive ? 'text-[#087DCD] font-bold' : 'text-slate-500 hover:text-slate-900'
               }`}
             >
               <div className="relative">
@@ -95,7 +94,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
                 {item.label}
               </span>
               {isActive && (
-                <span className="w-6 h-0.5 bg-emerald-700 rounded-full mt-0.5" />
+                <span className="w-6 h-0.5 bg-[#087DCD] rounded-full mt-0.5" />
               )}
             </button>
           );
@@ -105,7 +104,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
           <button
             onClick={() => setShowAllModulesModal(true)}
             className={`flex flex-col items-center justify-center flex-1 py-1 min-h-[44px] transition-colors ${
-              showAllModulesModal ? 'text-emerald-700 font-bold' : 'text-slate-500 hover:text-slate-900'
+              showAllModulesModal ? 'text-[#087DCD] font-bold' : 'text-slate-500 hover:text-slate-900'
             }`}
           >
             <Grid className="w-5 h-5" />
@@ -116,11 +115,11 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
 
       {/* Modal para ver todos los módulos en pantallas móviles */}
       {showAllModulesModal && (
-        <div className="lg:hidden fixed inset-0 z-50 flex flex-col justify-end bg-slate-900/60 backdrop-blur-xs">
+        <div className="lg:hidden fixed inset-0 z-50 flex flex-col justify-end bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-t-3xl max-h-[75vh] flex flex-col p-5 shadow-2xl animate-in slide-in-from-bottom duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div>
-                <h3 className="text-sm font-bold text-slate-900">Todos los Módulos</h3>
+                <h3 className="text-sm font-bold text-slate-900">Módulos Disponibles</h3>
                 <p className="text-xs text-slate-500">{currentRoleObj.name}</p>
               </div>
               <button
@@ -143,11 +142,11 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
                     onClick={() => handleSelect(modId)}
                     className={`flex items-center gap-3 p-3 rounded-xl border text-left transition-colors min-h-[48px] ${
                       isActive
-                        ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-bold'
+                        ? 'border-[#087DCD] bg-[#087DCD]/10 text-[#087DCD] font-bold'
                         : 'border-slate-200 bg-slate-50/50 text-slate-700 hover:bg-slate-100'
                     }`}
                   >
-                    <span className={isActive ? 'text-emerald-700' : 'text-slate-600'}>
+                    <span className={isActive ? 'text-[#087DCD]' : 'text-slate-600'}>
                       {def.icon}
                     </span>
                     <span className="text-xs">{def.label}</span>

@@ -25,7 +25,7 @@ export type ModuleId =
 
 export interface WarehouseLocation {
   id: string;
-  warehouseName: string; // ej. Almacén Central Insumos, Bodega Invernadero Norte, etc.
+  warehouseName: string; // ej. Almacén de Producto Terminado, Área de Lavado, etc.
   aisle: string; // Pasillo (A, B, C...)
   rack: string; // Anaquel / Rack (R-01, R-02...)
   shelf: string; // Estante / Nivel (N-1, N-2, N-3...)
@@ -37,8 +37,13 @@ export interface Product {
   sku: string;
   barcode: string;
   name: string;
-  category: 'Semillas y Plántulas' | 'Fertilizantes y Nutrientes' | 'Sustratos y Enmiendas' | 'Riego y Tuberías' | 'Material de Empaque' | 'Herramientas y EPP';
-  unit: 'Kilogramo' | 'Litro' | 'Saco 50kg' | 'Pieza' | 'Charola 200 cav' | 'Rollo 100m';
+  category:
+    | 'Garrafones y Envases'
+    | 'Tapas, Sellos y Empaque'
+    | 'Botellas Pet y Presentaciones Menores'
+    | 'Químicos y Consumibles de Filtración'
+    | 'Refacciones y Equipamiento de Purificación';
+  unit: 'Pieza' | 'Caja' | 'Paquete' | 'Rollo' | 'Saco 25kg' | 'Garrafa 20L';
   cost: number; // Costo base unitario en $ MXN
   stock: number; // Existencia física total actual
   minStock: number; // Punto de reorden
@@ -99,7 +104,12 @@ export interface StockAdjustment {
   productId: string;
   productName: string;
   sku: string;
-  type: 'Merma por caducidad/humedad' | 'Daño en maniobra' | 'Corrección por conteo cíclico' | 'Faltante no justificado';
+  type:
+    | 'Merma por garrafón roto / fisura'
+    | 'Fuga o defecto de sellado / tapa'
+    | 'Corrección por conteo cíclico'
+    | 'Daño en maniobra o ruta'
+    | 'Faltante no justificado';
   adjustmentQuantity: number; // Puede ser negativo o positivo
   justification: string; // Obligatorio
   approvedBySupervisor: string;

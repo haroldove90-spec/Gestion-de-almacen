@@ -13,10 +13,9 @@ import {
   PackageCheck,
   BarChart3,
   Users2,
-  Warehouse,
+  Droplets,
   ChevronRight,
-  LogOut,
-  Info
+  LogOut
 } from 'lucide-react';
 
 interface DesktopSidebarProps {
@@ -61,7 +60,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
     },
     {
       id: 'ubicaciones',
-      label: 'Ubicaciones y Pasillos',
+      label: 'Ubicaciones y Racks',
       icon: <MapPin className="w-4 h-4" />,
       category: 'Operativo',
     },
@@ -93,7 +92,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
     },
     {
       id: 'transferencias',
-      label: 'Transferencias Internas',
+      label: 'Traspasos a Andén',
       icon: <ArrowLeftRight className="w-4 h-4" />,
       category: 'Táctico',
     },
@@ -119,40 +118,39 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
     },
   ];
 
-  // Group items by category
   const categories: Array<{ name: string; items: NavItem[] }> = [
     {
       name: 'Operación de Almacén',
       items: allNavItems.filter((i) => i.category === 'Operativo'),
     },
     {
-      name: 'Supervisión y Control',
+      name: 'Supervisión y Calidad',
       items: allNavItems.filter((i) => i.category === 'Táctico'),
     },
     {
-      name: 'Dirección y Administración',
+      name: 'Dirección y Control',
       items: allNavItems.filter((i) => i.category === 'Estratégico'),
     },
   ];
 
   return (
     <aside
-      className={`hidden lg:flex flex-col bg-slate-900 text-slate-100 transition-all duration-300 border-r border-slate-800 ${
+      className={`hidden lg:flex flex-col bg-black text-slate-100 transition-all duration-300 border-r border-slate-900 ${
         isOpen ? 'w-64' : 'w-20'
       } shrink-0 select-none`}
     >
       {/* Encabezado del Menú Lateral */}
-      <div className="h-16 flex items-center px-4 border-b border-slate-800/80">
+      <div className="h-16 flex items-center px-4 border-b border-slate-900">
         <div className="flex items-center gap-3 overflow-hidden">
-          <div className="w-9 h-9 rounded-lg bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center shrink-0">
-            <Warehouse className="w-5 h-5 text-emerald-400" />
+          <div className="w-9 h-9 rounded-lg bg-[#087DCD]/20 border border-[#087DCD]/40 flex items-center justify-center shrink-0">
+            <Droplets className="w-5 h-5 text-[#087DCD]" />
           </div>
           {isOpen && (
             <div className="flex flex-col truncate">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
                 Módulos Activos
               </span>
-              <span className="text-sm font-bold text-white truncate">
+              <span className="text-xs font-bold text-white truncate">
                 {currentRoleObj.level}
               </span>
             </div>
@@ -172,7 +170,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
           return (
             <div key={cat.name} className="space-y-1">
               {isOpen && (
-                <div className="px-3 pb-1.5 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+                <div className="px-3 pb-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
                   {cat.name}
                 </div>
               )}
@@ -187,8 +185,8 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
                     title={!isOpen ? item.label : undefined}
                     className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-colors group relative ${
                       isActive
-                        ? 'bg-emerald-600 text-white shadow-sm'
-                        : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                        ? 'bg-[#087DCD] text-white shadow-sm'
+                        : 'text-slate-300 hover:bg-slate-900 hover:text-white'
                     }`}
                   >
                     <span className="shrink-0">{item.icon}</span>
@@ -221,18 +219,18 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
       </div>
 
       {/* Pie del Menú Lateral: Sesión y Respaldo */}
-      <div className="p-3 border-t border-slate-800 bg-slate-950/60">
+      <div className="p-3 border-t border-slate-900 bg-black">
         {isOpen ? (
           <div className="space-y-2">
             <div className="flex items-center justify-between text-[11px] text-slate-400 px-2">
               <span>Folios Obligatorios</span>
-              <span className="text-emerald-400 font-mono">Activo</span>
+              <span className="text-[#087DCD] font-mono font-bold">Activo</span>
             </div>
             <button
               onClick={onLogout}
               className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-semibold text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 rounded-xl border border-slate-800 transition-colors"
             >
-              <LogOut className="w-3.5 h-3.5 text-rose-400" />
+              <LogOut className="w-3.5 h-3.5 text-slate-400" />
               <span>Cambiar Rol / Salir</span>
             </button>
           </div>
@@ -240,7 +238,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
           <button
             onClick={onLogout}
             title="Cerrar sesión"
-            className="w-full flex items-center justify-center p-2 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded-xl transition-colors"
+            className="w-full flex items-center justify-center p-2 text-slate-400 hover:text-white hover:bg-slate-900 rounded-xl transition-colors"
           >
             <LogOut className="w-4 h-4" />
           </button>

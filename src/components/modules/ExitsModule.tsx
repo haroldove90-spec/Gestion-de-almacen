@@ -7,7 +7,7 @@ import {
   AlertCircle,
   CheckCircle2,
   Search,
-  ShoppingCart,
+  Truck,
   SendHorizontal
 } from 'lucide-react';
 import { WAREHOUSE_ZONES } from '../../data/mockData';
@@ -62,7 +62,7 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
     setFormError('');
 
     if (!folio.trim()) {
-      setFormError('El folio de Nota de Venta o Pedido de Entrega es obligatorio.');
+      setFormError('El folio de Nota de Venta, Pedido o Manifiesto de Ruta es obligatorio.');
       return;
     }
 
@@ -77,13 +77,13 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
     }
 
     if (!destination.trim()) {
-      setFormError('Indique el cliente, cultivo o área requirente de destino.');
+      setFormError('Indique la ruta de reparto, cliente o destino.');
       return;
     }
 
     if (selectedProduct && Number(quantity) > selectedProduct.stock) {
       setFormError(
-        `Validación de Unidades Fallida: No se pueden despachar ${quantity} ${selectedProduct.unit}. La existencia actual disponible es de solo ${selectedProduct.stock} ${selectedProduct.unit}.`
+        `Validación de Unidades Fallida: No se pueden despachar ${quantity} ${selectedProduct.unit}. La existencia disponible en almacén es de solo ${selectedProduct.stock} ${selectedProduct.unit}.`
       );
       return;
     }
@@ -127,10 +127,10 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
             <span>Módulo Operativo</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 mt-0.5">
-            Registro de Salidas (Despachos)
+            Registro de Salidas (Despacho a Rutas y Clientes)
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Descuento por ventas, requisiciones de cultivo o traspasos con validación estricta de existencias disponibles.
+            Descuento de garrafones y producto embotellado por notas de venta o rutas de reparto con validación estricta de existencias.
           </p>
         </div>
 
@@ -139,22 +139,22 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
             setShowForm(!showForm);
             setFormError('');
           }}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-rose-700 text-white rounded-xl text-xs font-semibold hover:bg-rose-800 transition shadow-xs shrink-0"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-black text-white rounded-xl text-xs font-semibold hover:bg-slate-800 transition shadow-xs shrink-0"
         >
           {showForm ? (
             <span>Ver Historial</span>
           ) : (
             <>
               <Plus className="w-4 h-4" />
-              <span>Nuevo Despacho</span>
+              <span>Nuevo Despacho / Carga</span>
             </>
           )}
         </button>
       </div>
 
       {successMessage && (
-        <div className="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl text-xs font-semibold">
-          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+        <div className="flex items-center gap-3 p-4 bg-[#087DCD]/10 border border-[#087DCD]/30 text-slate-900 rounded-xl text-xs font-semibold">
+          <CheckCircle2 className="w-5 h-5 text-[#087DCD] shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
@@ -164,8 +164,8 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm animate-in fade-in duration-200">
           <div className="pb-4 mb-5 border-b border-slate-100 flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <FileCheck2 className="w-4 h-4 text-rose-600" />
-              <span>Captura de Despacho / Salida de Material</span>
+              <FileCheck2 className="w-4 h-4 text-black" />
+              <span>Captura de Despacho / Carga de Vehículo</span>
             </h3>
             <span className="text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
               * Folio Obligatorio
@@ -187,25 +187,25 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
                 </label>
                 <input
                   type="text"
-                  placeholder="ej. NV-4092 o REQ-INVE-105"
+                  placeholder="ej. NV-4093 o RUTA-MAN-012"
                   value={folio}
                   onChange={(e) => setFolio(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-600 font-mono"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] font-mono"
                   required
                 />
-                <span className="text-[10px] text-slate-400">Nota de venta o pedido de entrega</span>
+                <span className="text-[10px] text-slate-400">Nota de venta, pedido o manifiesto de carga</span>
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Cliente o Área Requirente de Destino *
+                  Ruta de Reparto o Cliente *
                 </label>
                 <input
                   type="text"
-                  placeholder="ej. Nave Invernadero 4 / Cuadrilla Cosecha"
+                  placeholder="ej. Ruta 02 Poniente / Camión 5"
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-600"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                   required
                 />
               </div>
@@ -217,7 +217,7 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
                 <select
                   value={sourceWarehouse}
                   onChange={(e) => setSourceWarehouse(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                 >
                   {WAREHOUSE_ZONES.map((zone) => (
                     <option key={zone} value={zone}>
@@ -231,12 +231,12 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
               <div className="md:col-span-2">
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Artículo / SKU a Despachar *
+                  Artículo o Presentación a Despachar *
                 </label>
                 <select
                   value={productId}
                   onChange={(e) => setProductId(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                   required
                 >
                   <option value="">-- Seleccionar producto con existencia disponible --</option>
@@ -260,7 +260,7 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
                   placeholder="0"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value === '' ? '' : Number(e.target.value))}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-600 font-mono tabular-nums font-bold text-rose-800"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] font-mono tabular-nums font-bold text-slate-900"
                   required
                 />
               </div>
@@ -269,14 +269,14 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
             {selectedProduct && (
               <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <span className="font-semibold">Existencia actual:</span>{' '}
+                  <span className="font-semibold">Existencia actual en bodega:</span>{' '}
                   <span className="font-mono font-bold text-slate-900">{selectedProduct.stock} {selectedProduct.unit}</span>
                 </div>
                 <div>
-                  <span className="font-semibold">Ubicación física:</span> {selectedProduct.location.binCode} ({selectedProduct.location.aisle})
+                  <span className="font-semibold">Ubicación física:</span> {selectedProduct.location.binCode} ({selectedProduct.location.warehouseName})
                 </div>
                 {quantity && Number(quantity) > 0 && (
-                  <div className={`font-bold ${Number(quantity) > selectedProduct.stock ? 'text-rose-600' : 'text-slate-900'}`}>
+                  <div className={`font-bold ${Number(quantity) > selectedProduct.stock ? 'text-rose-600' : 'text-[#087DCD]'}`}>
                     Saldo posterior: {selectedProduct.stock} - {quantity} = {selectedProduct.stock - Number(quantity)} {selectedProduct.unit}
                   </div>
                 )}
@@ -286,14 +286,14 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Notas de Despacho (Opcional)
+                  Notas de Carga (Opcional)
                 </label>
                 <input
                   type="text"
-                  placeholder="ej. Requisición autorizada por supervisor de campo"
+                  placeholder="ej. Tarimas aseguradas con fleje, envases limpios"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-600"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                 />
               </div>
 
@@ -305,7 +305,7 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
                   type="text"
                   value={responsibleName}
                   onChange={(e) => setResponsibleName(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-600 bg-slate-50"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-slate-50"
                 />
               </div>
             </div>
@@ -320,7 +320,7 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 bg-rose-700 text-white rounded-lg text-xs font-semibold hover:bg-rose-800 transition shadow-xs flex items-center gap-1.5"
+                className="px-5 py-2 bg-black text-white rounded-lg text-xs font-semibold hover:bg-slate-800 transition shadow-xs flex items-center gap-1.5"
               >
                 <SendHorizontal className="w-3.5 h-3.5" />
                 <span>Validar y Descontar Existencias (-)</span>
@@ -334,7 +334,7 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
       <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
         <div className="p-4 border-b border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h3 className="text-sm font-bold text-slate-900">Historial de Despachos y Salidas</h3>
+            <h3 className="text-sm font-bold text-slate-900">Historial de Despachos y Cargas</h3>
             <span className="text-xs text-slate-500">
               {filteredMovements.length} despachos con folio de respaldo
             </span>
@@ -344,10 +344,10 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
             <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
             <input
               type="text"
-              placeholder="Buscar por folio, cliente o SKU..."
+              placeholder="Buscar por folio, ruta o SKU..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-600"
+              className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
             />
           </div>
         </div>
@@ -359,7 +359,7 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
                 <th className="py-3 px-4">Folio Respaldo</th>
                 <th className="py-3 px-4">Fecha / Hora</th>
                 <th className="py-3 px-4">Artículo / SKU</th>
-                <th className="py-3 px-4">Destino / Cliente</th>
+                <th className="py-3 px-4">Ruta / Destino</th>
                 <th className="py-3 px-4 text-right">Cant. Despachada</th>
                 <th className="py-3 px-4 text-right">Saldo Restante</th>
                 <th className="py-3 px-4">Notas / Observaciones</th>
@@ -387,8 +387,8 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
                     </td>
                     <td className="py-3 px-4 text-slate-700">
                       <div className="flex items-center gap-1.5">
-                        <ShoppingCart className="w-3.5 h-3.5 text-slate-400" />
-                        <span>{mov.targetWarehouse || 'Destino General'}</span>
+                        <Truck className="w-3.5 h-3.5 text-slate-400" />
+                        <span>{mov.targetWarehouse || 'Ruta General'}</span>
                       </div>
                     </td>
                     <td className="py-3 px-4 text-right font-mono font-bold text-rose-700 tabular-nums">
@@ -398,7 +398,7 @@ export const ExitsModule: React.FC<ExitsModuleProps> = ({
                       {mov.resultingStock} {mov.unit}
                     </td>
                     <td className="py-3 px-4 text-slate-500 text-[11px]">
-                      {mov.notes || 'Despacho validado en sistema'}
+                      {mov.notes || 'Despacho verificado'}
                     </td>
                   </tr>
                 ))

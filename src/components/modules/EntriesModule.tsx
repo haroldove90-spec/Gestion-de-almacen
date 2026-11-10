@@ -7,8 +7,7 @@ import {
   Building2, 
   AlertCircle, 
   CheckCircle2, 
-  Search,
-  Filter
+  Search
 } from 'lucide-react';
 import { WAREHOUSE_ZONES } from '../../data/mockData';
 
@@ -40,7 +39,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
   const [productId, setProductId] = useState('');
   const [quantity, setQuantity] = useState<number | ''>('');
   const [supplier, setSupplier] = useState('');
-  const [targetWarehouse, setTargetWarehouse] = useState(WAREHOUSE_ZONES[0]);
+  const [targetWarehouse, setTargetWarehouse] = useState(WAREHOUSE_ZONES[2]); // Insumos
   const [hasIncident, setHasIncident] = useState(false);
   const [incidentNotes, setIncidentNotes] = useState('');
   const [notes, setNotes] = useState('');
@@ -70,7 +69,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
     }
 
     if (!productId) {
-      setFormError('Debe seleccionar un producto del catálogo.');
+      setFormError('Debe seleccionar un insumo o producto del catálogo.');
       return;
     }
 
@@ -85,7 +84,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
     }
 
     if (hasIncident && !incidentNotes.trim()) {
-      setFormError('Si reporta incidencia o faltante, debe detallar la descripción.');
+      setFormError('Si reporta incidencia o faltante, debe detallar la descripción del lote.');
       return;
     }
 
@@ -101,8 +100,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
         responsibleName: responsibleName.trim(),
       });
 
-      setSuccessMessage(`¡Entrada registrada con éxito! Folio: ${folio}. Se sumaron ${quantity} unidades.`);
-      // Reset form
+      setSuccessMessage(`¡Entrada registrada con éxito! Folio: ${folio}. Se sumaron ${quantity} unidades al inventario.`);
       setFolio('');
       setProductId('');
       setQuantity('');
@@ -124,18 +122,18 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Encabezado del Módulo con Acción Principal */}
+      {/* Encabezado del Módulo */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#087DCD]">
             <ArrowDownToLine className="w-4 h-4" />
             <span>Módulo Operativo</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 mt-0.5">
-            Registro de Entradas (Recepciones)
+            Registro de Entradas (Recepciones de Insumos y Envases)
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Ingreso por orden de compra o proveedor. Suma existencias (+) con registro obligatorio de folio e incidencias.
+            Ingreso de tapas, sellos, garrafones, químicos y filtros con registro obligatorio de folio e incidencias.
           </p>
         </div>
 
@@ -144,7 +142,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
             setShowForm(!showForm);
             setFormError('');
           }}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-700 text-white rounded-xl text-xs font-semibold hover:bg-emerald-800 transition shadow-xs shrink-0"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#087DCD] text-white rounded-xl text-xs font-semibold hover:bg-[#0667a9] transition shadow-xs shrink-0"
         >
           {showForm ? (
             <span>Ver Historial</span>
@@ -158,8 +156,8 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
       </div>
 
       {successMessage && (
-        <div className="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl text-xs font-semibold">
-          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+        <div className="flex items-center gap-3 p-4 bg-[#087DCD]/10 border border-[#087DCD]/30 text-slate-900 rounded-xl text-xs font-semibold">
+          <CheckCircle2 className="w-5 h-5 text-[#087DCD] shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
@@ -169,7 +167,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm animate-in fade-in duration-200">
           <div className="pb-4 mb-5 border-b border-slate-100 flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <FileText className="w-4 h-4 text-emerald-600" />
+              <FileText className="w-4 h-4 text-[#087DCD]" />
               <span>Captura de Recepción de Material</span>
             </h3>
             <span className="text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
@@ -192,10 +190,10 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
                 </label>
                 <input
                   type="text"
-                  placeholder="ej. OC-2026-085 o FACT-9821"
+                  placeholder="ej. OC-2026-092 o FACT-1049"
                   value={folio}
                   onChange={(e) => setFolio(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 font-mono"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] font-mono"
                   required
                 />
                 <span className="text-[10px] text-slate-400">Orden de compra o factura de proveedor</span>
@@ -207,10 +205,10 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
                 </label>
                 <input
                   type="text"
-                  placeholder="ej. AgroSistemas del Bajío"
+                  placeholder="ej. Tapas y Envases de Occidente"
                   value={supplier}
                   onChange={(e) => setSupplier(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                   required
                 />
               </div>
@@ -222,7 +220,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
                 <select
                   value={targetWarehouse}
                   onChange={(e) => setTargetWarehouse(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                 >
                   {WAREHOUSE_ZONES.map((zone) => (
                     <option key={zone} value={zone}>
@@ -236,15 +234,15 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
               <div className="md:col-span-2">
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Artículo / Producto a Ingresar *
+                  Insumo o Producto a Ingresar *
                 </label>
                 <select
                   value={productId}
                   onChange={(e) => setProductId(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                   required
                 >
-                  <option value="">-- Seleccionar producto del catálogo --</option>
+                  <option value="">-- Seleccionar insumo del catálogo --</option>
                   {products.map((p) => (
                     <option key={p.id} value={p.id}>
                       {p.sku} · {p.name} (Stock actual: {p.stock} {p.unit})
@@ -264,7 +262,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
                   placeholder="0"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value === '' ? '' : Number(e.target.value))}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 font-mono tabular-nums font-bold text-emerald-800"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] font-mono tabular-nums font-bold text-[#087DCD]"
                   required
                 />
               </div>
@@ -279,7 +277,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
                   <span className="font-semibold">Costo unitario:</span> ${selectedProduct.cost.toLocaleString('es-MX', { minimumFractionDigits: 2 })} MXN
                 </div>
                 {quantity && Number(quantity) > 0 && (
-                  <div className="font-bold text-emerald-800">
+                  <div className="font-bold text-[#087DCD]">
                     Impacto en Stock: {selectedProduct.stock} ➔ {selectedProduct.stock + Number(quantity)} {selectedProduct.unit}
                   </div>
                 )}
@@ -293,9 +291,9 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
                   type="checkbox"
                   checked={hasIncident}
                   onChange={(e) => setHasIncident(e.target.checked)}
-                  className="rounded text-emerald-600 focus:ring-emerald-600 w-4 h-4"
+                  className="rounded text-[#087DCD] focus:ring-[#087DCD] w-4 h-4"
                 />
-                <span>¿Presenta Incidencia o Faltante en la Recepción? (Cajas dañadas, producto incompleto o defectuoso)</span>
+                <span>¿Presenta Incidencia o Faltante en la Recepción? (Tapas aplastadas, garrafones rayados/rotos o bultos rotos)</span>
               </label>
 
               {hasIncident && (
@@ -305,7 +303,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
                   </label>
                   <textarea
                     rows={2}
-                    placeholder="Detalle exactamente la discrepancia respecto a la orden de compra o el estado del producto..."
+                    placeholder="Detalle exactamente la discrepancia respecto a la orden de compra o el estado físico del insumo..."
                     value={incidentNotes}
                     onChange={(e) => setIncidentNotes(e.target.value)}
                     className="w-full px-3 py-2 text-xs border border-amber-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
@@ -322,10 +320,10 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
                 </label>
                 <input
                   type="text"
-                  placeholder="ej. Sello fitosanitario verificado, tarimas de madera tratada"
+                  placeholder="ej. Certificado de inocuidad y grado alimenticio verificado"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                 />
               </div>
 
@@ -337,7 +335,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
                   type="text"
                   value={responsibleName}
                   onChange={(e) => setResponsibleName(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 bg-slate-50"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-slate-50"
                 />
               </div>
             </div>
@@ -352,7 +350,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 bg-emerald-700 text-white rounded-lg text-xs font-semibold hover:bg-emerald-800 transition shadow-xs"
+                className="px-5 py-2 bg-[#087DCD] text-white rounded-lg text-xs font-semibold hover:bg-[#0667a9] transition shadow-xs"
               >
                 Confirmar y Sumar a Existencias (+)
               </button>
@@ -378,7 +376,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
               placeholder="Buscar por folio, SKU o proveedor..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
+              className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
             />
           </div>
         </div>
@@ -419,10 +417,10 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
                     <td className="py-3 px-4 text-slate-700">
                       <div className="flex items-center gap-1.5">
                         <Building2 className="w-3.5 h-3.5 text-slate-400" />
-                        <span>{mov.sourceWarehouse || 'Proveedor General'}</span>
+                        <span>{mov.sourceWarehouse || 'Proveedor Insumos'}</span>
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-right font-mono font-bold text-emerald-700 tabular-nums">
+                    <td className="py-3 px-4 text-right font-mono font-bold text-[#087DCD] tabular-nums">
                       +{mov.quantity} {mov.unit}
                     </td>
                     <td className="py-3 px-4 text-right font-mono font-semibold text-slate-800 tabular-nums">
@@ -437,7 +435,7 @@ export const EntriesModule: React.FC<EntriesModuleProps> = ({
                       ) : mov.notes ? (
                         <span className="text-slate-600 text-[11px]">{mov.notes}</span>
                       ) : (
-                        <span className="text-slate-400 text-[11px]">Sin incidencias</span>
+                        <span className="text-slate-400 text-[11px]">Conforme</span>
                       )}
                     </td>
                   </tr>

@@ -5,10 +5,7 @@ import {
   Clock, 
   ArrowRight, 
   ShieldAlert, 
-  CheckCircle,
-  PackageCheck,
-  Building,
-  RefreshCw
+  CheckCircle
 } from 'lucide-react';
 
 interface StockAlertsModuleProps {
@@ -27,7 +24,7 @@ export const StockAlertsModule: React.FC<StockAlertsModuleProps> = ({
   // 1. Productos en punto de reorden (stock actual <= stock mínimo)
   const reorderProducts = products.filter((p) => p.stock <= p.minStock);
 
-  // 2. Productos con exceso de permanencia (>60 días sin rotación o en almacén)
+  // 2. Productos con exceso de permanencia (>60 días sin rotación)
   const stagnantProducts = products.filter((p) => p.daysInWarehouse >= 60);
 
   return (
@@ -40,10 +37,10 @@ export const StockAlertsModule: React.FC<StockAlertsModuleProps> = ({
             <span>Módulo Táctico / Supervisión</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 mt-0.5">
-            Gestión de Alertas de Stock
+            Gestión de Alertas de Stock e Insumos
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Monitoreo preventivo de productos en punto de reorden (stock mínimo crítico) y artículos con exceso de permanencia.
+            Monitoreo preventivo de artículos en punto de reorden crítico (tapas, sal, garrafones) y productos con exceso de permanencia.
           </p>
         </div>
 
@@ -91,9 +88,9 @@ export const StockAlertsModule: React.FC<StockAlertsModuleProps> = ({
         <div className="space-y-4">
           {reorderProducts.length === 0 ? (
             <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 text-slate-500">
-              <CheckCircle className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
+              <CheckCircle className="w-8 h-8 text-[#087DCD] mx-auto mb-2" />
               <h3 className="text-sm font-bold text-slate-800">Inventario Óptimo</h3>
-              <p className="text-xs text-slate-500 mt-1">Todos los artículos se encuentran por encima de su nivel de seguridad mínimo.</p>
+              <p className="text-xs text-slate-500 mt-1">Todos los artículos de agua e insumos se encuentran por encima de su nivel de seguridad mínimo.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -135,7 +132,7 @@ export const StockAlertsModule: React.FC<StockAlertsModuleProps> = ({
                           </div>
                         </div>
                         <div>
-                          <div className="text-[10px] text-slate-400">Déficit a Comprar</div>
+                          <div className="text-[10px] text-slate-400">Déficit a Surtir</div>
                           <div className="text-base font-mono font-bold text-amber-700 tabular-nums">
                             +{deficit} {p.unit}
                           </div>
@@ -151,7 +148,7 @@ export const StockAlertsModule: React.FC<StockAlertsModuleProps> = ({
                       {onNavigateToEntries && (
                         <button
                           onClick={onNavigateToEntries}
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-700 text-white rounded-lg text-xs font-semibold hover:bg-emerald-800 transition"
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-[#087DCD] text-white rounded-lg text-xs font-semibold hover:bg-[#0667a9] transition"
                         >
                           <span>Generar Recepción</span>
                           <ArrowRight className="w-3.5 h-3.5" />
@@ -171,9 +168,9 @@ export const StockAlertsModule: React.FC<StockAlertsModuleProps> = ({
         <div className="space-y-4">
           {stagnantProducts.length === 0 ? (
             <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 text-slate-500">
-              <CheckCircle className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
+              <CheckCircle className="w-8 h-8 text-[#087DCD] mx-auto mb-2" />
               <h3 className="text-sm font-bold text-slate-800">Rotación Adecuada</h3>
-              <p className="text-xs text-slate-500 mt-1">No hay insumos con más de 60 días detenidos en almacén.</p>
+              <p className="text-xs text-slate-500 mt-1">No hay insumos o envases con más de 60 días detenidos en bodega.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -218,15 +215,15 @@ export const StockAlertsModule: React.FC<StockAlertsModuleProps> = ({
 
                   <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
                     <span className="text-[11px] text-amber-800 font-medium">
-                      Recomendación: Programar traspaso o uso en naves de cultivo
+                      Recomendación: Mover a andén de carga o programar uso
                     </span>
 
                     {onNavigateToTransfers && (
                       <button
                         onClick={onNavigateToTransfers}
-                        className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-700 text-white rounded-lg text-xs font-semibold hover:bg-blue-800 transition"
+                        className="flex items-center gap-1.5 px-3 py-1.5 bg-black text-white rounded-lg text-xs font-semibold hover:bg-slate-800 transition"
                       >
-                        <span>Traspasar a Nave</span>
+                        <span>Traspasar a Andén</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     )}

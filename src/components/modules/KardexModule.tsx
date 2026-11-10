@@ -3,10 +3,6 @@ import { Product, MovementRecord } from '../../types/warehouse';
 import { 
   ScrollText, 
   Search, 
-  Filter, 
-  Calendar, 
-  User, 
-  FileText, 
   ArrowDownLeft, 
   ArrowUpRight, 
   Shuffle, 
@@ -45,8 +41,8 @@ export const KardexModule: React.FC<KardexModuleProps> = ({
     switch (type) {
       case 'Entrada por Compra':
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-            <ArrowDownLeft className="w-3 h-3 text-emerald-600" />
+          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#087DCD] bg-[#087DCD]/10 px-2 py-0.5 rounded border border-[#087DCD]/20">
+            <ArrowDownLeft className="w-3 h-3 text-[#087DCD]" />
             <span>Entrada Compra</span>
           </span>
         );
@@ -66,9 +62,9 @@ export const KardexModule: React.FC<KardexModuleProps> = ({
         );
       case 'Traspaso Interno':
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-800 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-            <Shuffle className="w-3 h-3 text-blue-600" />
-            <span>Traspaso</span>
+          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-900 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+            <Shuffle className="w-3 h-3 text-slate-700" />
+            <span>Traspaso Andén</span>
           </span>
         );
     }
@@ -79,15 +75,15 @@ export const KardexModule: React.FC<KardexModuleProps> = ({
       {/* Encabezado */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-blue-700">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#087DCD]">
             <ScrollText className="w-4 h-4" />
-            <span>Trazabilidad Operativa</span>
+            <span>Trazabilidad de Planta</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 mt-0.5">
             Kardex de Producto y Movimientos
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Historial cronológico completo de entradas, salidas, saldos físicos y usuario que ejecutó cada movimiento.
+            Historial cronológico completo de entradas, salidas, saldos físicos de garrafones e insumos con folio y usuario responsable.
           </p>
         </div>
 
@@ -107,7 +103,7 @@ export const KardexModule: React.FC<KardexModuleProps> = ({
             <select
               value={selectedProductId}
               onChange={(e) => setSelectedProductId(e.target.value)}
-              className="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
+              className="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
             >
               <option value="all">-- Todos los Artículos (Vista Global) --</option>
               {products.map((p) => (
@@ -125,11 +121,11 @@ export const KardexModule: React.FC<KardexModuleProps> = ({
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              className="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
+              className="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
             >
               <option value="all">Todos los Tipos</option>
               <option value="Entrada por Compra">Entradas por Compra</option>
-              <option value="Salida por Venta / Requisición">Salidas por Venta</option>
+              <option value="Salida por Venta / Requisición">Salidas por Venta / Ruta</option>
               <option value="Ajuste por Merma o Conteo">Ajustes / Mermas</option>
               <option value="Traspaso Interno">Traspasos Internos</option>
             </select>
@@ -144,7 +140,7 @@ export const KardexModule: React.FC<KardexModuleProps> = ({
               placeholder="Buscar folio o usuario..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
             />
           </div>
         </div>
@@ -152,13 +148,13 @@ export const KardexModule: React.FC<KardexModuleProps> = ({
 
       {/* Tarjeta de Resumen del Producto Seleccionado */}
       {selectedProduct && (
-        <div className="bg-blue-50/60 border border-blue-200/80 rounded-2xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="bg-[#087DCD]/10 border border-[#087DCD]/20 rounded-2xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="font-mono text-xs font-bold text-blue-900 bg-white px-2 py-0.5 rounded border border-blue-200">
+              <span className="font-mono text-xs font-bold text-[#087DCD] bg-white px-2 py-0.5 rounded border border-[#087DCD]/30">
                 {selectedProduct.sku}
               </span>
-              <span className="text-xs text-slate-500">{selectedProduct.category}</span>
+              <span className="text-xs text-slate-600">{selectedProduct.category}</span>
             </div>
             <h3 className="text-base font-bold text-slate-900">{selectedProduct.name}</h3>
             <div className="text-xs text-slate-600 mt-1 flex flex-wrap gap-x-4 gap-y-1">
@@ -168,13 +164,13 @@ export const KardexModule: React.FC<KardexModuleProps> = ({
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-xl border border-blue-200 text-right shrink-0">
-            <div className="text-xs text-slate-500">Saldo Físico Actual en Almacén</div>
-            <div className="text-2xl font-mono font-extrabold text-blue-900 tabular-nums">
+          <div className="bg-white p-4 rounded-xl border border-slate-200 text-right shrink-0">
+            <div className="text-xs text-slate-500">Saldo Físico Actual en Planta</div>
+            <div className="text-2xl font-mono font-extrabold text-black tabular-nums">
               {selectedProduct.stock}{' '}
               <span className="text-xs font-sans font-normal text-slate-500">{selectedProduct.unit}</span>
             </div>
-            <div className="text-[11px] text-slate-500 mt-0.5">
+            <div className="text-[11px] text-[#087DCD] font-semibold mt-0.5">
               Valuación: ${(selectedProduct.stock * selectedProduct.cost).toLocaleString('es-MX', { minimumFractionDigits: 2 })} MXN
             </div>
           </div>
@@ -228,7 +224,7 @@ export const KardexModule: React.FC<KardexModuleProps> = ({
                         <div className="text-[11px] font-mono text-slate-400">{mov.sku}</div>
                       </td>
                       {/* Entrada (+) */}
-                      <td className="py-3 px-4 text-right font-mono font-bold text-emerald-700 tabular-nums">
+                      <td className="py-3 px-4 text-right font-mono font-bold text-[#087DCD] tabular-nums">
                         {isEntry || isPositiveAdjustment ? `+${Math.abs(mov.quantity)}` : '-'}
                       </td>
                       {/* Salida (-) */}

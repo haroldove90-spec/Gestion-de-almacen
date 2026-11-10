@@ -10,8 +10,7 @@ import {
   XCircle, 
   Search, 
   Laptop, 
-  Smartphone,
-  Lock
+  Smartphone
 } from 'lucide-react';
 
 interface UsersModuleProps {
@@ -87,7 +86,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
       {/* Encabezado */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-amber-700">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#087DCD]">
             <Users2 className="w-4 h-4" />
             <span>Nivel Estratégico / Dirección</span>
           </div>
@@ -95,7 +94,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
             Gestión de Accesos, Usuarios y Auditoría
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Creación de credenciales, asignación de permisos por rol y bitácora de auditoría de sesiones.
+            Creación de credenciales para operadores de planta, asignación de permisos por rol y bitácora de auditoría.
           </p>
         </div>
 
@@ -104,7 +103,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
             setShowForm(!showForm);
             setFormError('');
           }}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-700 text-white rounded-xl text-xs font-semibold hover:bg-amber-800 transition shadow-xs shrink-0"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#087DCD] text-white rounded-xl text-xs font-semibold hover:bg-[#0667a9] transition shadow-xs shrink-0"
         >
           {showForm ? (
             <span>Ver Cuentas</span>
@@ -118,8 +117,8 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
       </div>
 
       {successMessage && (
-        <div className="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl text-xs font-semibold">
-          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+        <div className="flex items-center gap-3 p-4 bg-[#087DCD]/10 border border-[#087DCD]/30 text-slate-900 rounded-xl text-xs font-semibold">
+          <CheckCircle2 className="w-5 h-5 text-[#087DCD] shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
@@ -134,7 +133,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
               : 'text-slate-600 hover:text-slate-900'
           }`}
         >
-          <ShieldCheck className="w-4 h-4 text-emerald-600" />
+          <ShieldCheck className="w-4 h-4 text-[#087DCD]" />
           <span>Cuentas y Permisos ({users.length})</span>
         </button>
         <button
@@ -145,7 +144,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
               : 'text-slate-600 hover:text-slate-900'
           }`}
         >
-          <History className="w-4 h-4 text-blue-600" />
+          <History className="w-4 h-4 text-black" />
           <span>Auditoría de Sesiones ({sessions.length})</span>
         </button>
       </div>
@@ -155,7 +154,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm animate-in fade-in duration-200">
           <div className="pb-4 mb-4 border-b border-slate-100 flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <UserPlus className="w-4 h-4 text-amber-600" />
+              <UserPlus className="w-4 h-4 text-[#087DCD]" />
               <span>Creación de Credencial de Personal</span>
             </h3>
             <span className="text-xs text-slate-500">Asignación de rol y permisos</span>
@@ -178,7 +177,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
                   placeholder="ej. miguel.torres"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                   required
                 />
               </div>
@@ -192,7 +191,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
                   placeholder="ej. Ing. Miguel Torres"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                   required
                 />
               </div>
@@ -203,10 +202,10 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
                 </label>
                 <input
                   type="email"
-                  placeholder="ej. miguel@invernaderofutura.com"
+                  placeholder="ej. miguel@borneo.mx"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                   required
                 />
               </div>
@@ -220,7 +219,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value as RoleId)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                 >
                   {SYSTEM_ROLES.map((r) => (
                     <option key={r.id} value={r.id}>
@@ -232,14 +231,14 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Almacén / Bodega Principal Asignada
+                  Área de Planta / Almacén Asignado
                 </label>
                 <select
                   value={assignedWarehouse}
                   onChange={(e) => setAssignedWarehouse(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                 >
-                  <option value="General - Todas las Bodegas">General - Todas las Bodegas</option>
+                  <option value="General - Planta Completa">General - Planta Completa</option>
                   {WAREHOUSE_ZONES.map((zone) => (
                     <option key={zone} value={zone}>
                       {zone}
@@ -259,7 +258,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 bg-amber-700 text-white rounded-lg text-xs font-semibold hover:bg-amber-800 transition shadow-xs"
+                className="px-5 py-2 bg-[#087DCD] text-white rounded-lg text-xs font-semibold hover:bg-[#0667a9] transition shadow-xs"
               >
                 Crear Credencial
               </button>
@@ -286,7 +285,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
                 placeholder="Buscar por nombre o usuario..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600"
+                className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
               />
             </div>
           </div>
@@ -298,7 +297,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
                   <th className="py-3 px-4">Usuario</th>
                   <th className="py-3 px-4">Nombre Completo</th>
                   <th className="py-3 px-4">Rol Asignado</th>
-                  <th className="py-3 px-4">Almacén Asignado</th>
+                  <th className="py-3 px-4">Área Asignada</th>
                   <th className="py-3 px-4">Último Acceso</th>
                   <th className="py-3 px-4">Estado</th>
                   <th className="py-3 px-4 text-center">Acciones</th>
@@ -331,8 +330,8 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
                       </td>
                       <td className="py-3 px-4">
                         {u.status === 'Activo' ? (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#087DCD] bg-[#087DCD]/10 px-2 py-0.5 rounded border border-[#087DCD]/20">
+                            <CheckCircle2 className="w-3 h-3 text-[#087DCD]" />
                             <span>Activo</span>
                           </span>
                         ) : (
@@ -348,7 +347,7 @@ export const UsersModule: React.FC<UsersModuleProps> = ({
                           className={`px-2.5 py-1 text-[11px] rounded font-medium transition ${
                             u.status === 'Activo'
                               ? 'text-rose-700 hover:bg-rose-50'
-                              : 'text-emerald-700 hover:bg-emerald-50'
+                              : 'text-[#087DCD] hover:bg-[#087DCD]/10'
                           }`}
                         >
                           {u.status === 'Activo' ? 'Desactivar' : 'Activar'}

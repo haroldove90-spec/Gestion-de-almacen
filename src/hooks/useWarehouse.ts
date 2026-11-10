@@ -23,15 +23,15 @@ import {
 } from '../data/mockData';
 
 const STORAGE_KEYS = {
-  CURRENT_ROLE: 'invernadero_current_role',
-  CURRENT_MODULE: 'invernadero_current_module',
-  PRODUCTS: 'invernadero_products_v1',
-  MOVEMENTS: 'invernadero_movements_v1',
-  COUNTS: 'invernadero_counts_v1',
-  ADJUSTMENTS: 'invernadero_adjustments_v1',
-  TRANSFERS: 'invernadero_transfers_v1',
-  USERS: 'invernadero_users_v1',
-  SESSIONS: 'invernadero_sessions_v1',
+  CURRENT_ROLE: 'borneo_current_role',
+  CURRENT_MODULE: 'borneo_current_module',
+  PRODUCTS: 'borneo_products_v2',
+  MOVEMENTS: 'borneo_movements_v2',
+  COUNTS: 'borneo_counts_v2',
+  ADJUSTMENTS: 'borneo_adjustments_v2',
+  TRANSFERS: 'borneo_transfers_v2',
+  USERS: 'borneo_users_v2',
+  SESSIONS: 'borneo_sessions_v2',
 };
 
 export function useWarehouse() {
@@ -120,6 +120,15 @@ export function useWarehouse() {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.CURRENT_MODULE, currentModule);
   }, [currentModule]);
+
+  // Guard: ensure current module is strictly one of the active role's allowed modules
+  useEffect(() => {
+    if (!currentRole) return;
+    const roleObj = SYSTEM_ROLES.find((r) => r.id === currentRole);
+    if (roleObj && !roleObj.allowedModules.includes(currentModule)) {
+      setCurrentModule(roleObj.allowedModules[0]);
+    }
+  }, [currentRole, currentModule]);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));

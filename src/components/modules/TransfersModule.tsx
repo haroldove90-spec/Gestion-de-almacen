@@ -3,12 +3,10 @@ import { Product, InternalTransfer } from '../../types/warehouse';
 import { 
   ArrowLeftRight, 
   Plus, 
-  FileText, 
   Truck, 
   AlertCircle, 
   CheckCircle2, 
-  Search,
-  Building,
+  Search, 
   ArrowRight
 } from 'lucide-react';
 import { WAREHOUSE_ZONES } from '../../data/mockData';
@@ -41,7 +39,7 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
   const [productId, setProductId] = useState('');
   const [quantity, setQuantity] = useState<number | ''>('');
   const [sourceWarehouse, setSourceWarehouse] = useState(WAREHOUSE_ZONES[0]);
-  const [targetWarehouse, setTargetWarehouse] = useState(WAREHOUSE_ZONES[1]);
+  const [targetWarehouse, setTargetWarehouse] = useState(WAREHOUSE_ZONES[4]); // Andén de carga
   const [driverOrCarrier, setDriverOrCarrier] = useState('');
   const [authorizedBy, setAuthorizedBy] = useState('Ing. Roberto Garza (Supervisor)');
   const [notes, setNotes] = useState('');
@@ -128,15 +126,15 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
       {/* Encabezado */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-blue-700">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#087DCD]">
             <ArrowLeftRight className="w-4 h-4" />
             <span>Módulo Táctico / Supervisión</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 mt-0.5">
-            Transferencias Internas (Traspasos)
+            Transferencias Internas (Traspasos entre Áreas)
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Movimiento de material entre distintas bodegas, almacenes o áreas de producción con emisión de Guía de Traslado obligatoria.
+            Movimiento de garrafones y producto terminado entre planta de llenado, almacén central y andenes de carga con Guía de Traslado.
           </p>
         </div>
 
@@ -145,7 +143,7 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
             setShowForm(!showForm);
             setFormError('');
           }}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-700 text-white rounded-xl text-xs font-semibold hover:bg-blue-800 transition shadow-xs shrink-0"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#087DCD] text-white rounded-xl text-xs font-semibold hover:bg-[#0667a9] transition shadow-xs shrink-0"
         >
           {showForm ? (
             <span>Ver Guías</span>
@@ -159,8 +157,8 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
       </div>
 
       {successMessage && (
-        <div className="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl text-xs font-semibold">
-          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+        <div className="flex items-center gap-3 p-4 bg-[#087DCD]/10 border border-[#087DCD]/30 text-slate-900 rounded-xl text-xs font-semibold">
+          <CheckCircle2 className="w-5 h-5 text-[#087DCD] shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
@@ -170,10 +168,10 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm animate-in fade-in duration-200">
           <div className="pb-4 mb-5 border-b border-slate-100 flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <Truck className="w-4 h-4 text-blue-600" />
+              <Truck className="w-4 h-4 text-[#087DCD]" />
               <span>Emisión de Guía de Traslado Interno</span>
             </h3>
-            <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+            <span className="text-[11px] font-semibold text-[#087DCD] bg-[#087DCD]/10 px-2 py-0.5 rounded-md border border-[#087DCD]/20">
               Reubicación Neutra de Stock
             </span>
           </div>
@@ -193,22 +191,22 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
                 </label>
                 <input
                   type="text"
-                  placeholder="ej. GUIA-TRAS-2026-017"
+                  placeholder="ej. GUIA-TRAS-2026-018"
                   value={guiaFolio}
                   onChange={(e) => setGuiaFolio(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] font-mono"
                   required
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Bodega / Almacén Origen *
+                  Área / Almacén Origen *
                 </label>
                 <select
                   value={sourceWarehouse}
                   onChange={(e) => setSourceWarehouse(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                 >
                   {WAREHOUSE_ZONES.map((zone) => (
                     <option key={zone} value={zone}>
@@ -220,12 +218,12 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Bodega / Almacén Destino *
+                  Área / Almacén Destino *
                 </label>
                 <select
                   value={targetWarehouse}
                   onChange={(e) => setTargetWarehouse(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                 >
                   {WAREHOUSE_ZONES.map((zone) => (
                     <option key={zone} value={zone}>
@@ -239,12 +237,12 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
               <div className="md:col-span-2">
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Artículo a Trasladar *
+                  Artículo o Presentación a Trasladar *
                 </label>
                 <select
                   value={productId}
                   onChange={(e) => setProductId(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-white"
                   required
                 >
                   <option value="">-- Seleccionar producto --</option>
@@ -268,7 +266,7 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
                   placeholder="0"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value === '' ? '' : Number(e.target.value))}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono font-bold"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] font-mono font-bold"
                   required
                 />
               </div>
@@ -281,10 +279,10 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
                 </label>
                 <input
                   type="text"
-                  placeholder="ej. Pedro Morales (Montacargas)"
+                  placeholder="ej. Pedro Morales (Montacargas / Ruta)"
                   value={driverOrCarrier}
                   onChange={(e) => setDriverOrCarrier(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                   required
                 />
               </div>
@@ -297,21 +295,21 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
                   type="text"
                   value={authorizedBy}
                   onChange={(e) => setAuthorizedBy(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 bg-slate-50"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD] bg-slate-50"
                   required
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Observaciones de Ruta / Lote (Opcional)
+                  Observaciones de Maniobra (Opcional)
                 </label>
                 <input
                   type="text"
-                  placeholder="ej. Traslado prioritario para cuadrilla vespertina"
+                  placeholder="ej. Tarimas completas con 32 garrafones cada una"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
                 />
               </div>
             </div>
@@ -326,7 +324,7 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 bg-blue-700 text-white rounded-lg text-xs font-semibold hover:bg-blue-800 transition shadow-xs flex items-center gap-1.5"
+                className="px-5 py-2 bg-[#087DCD] text-white rounded-lg text-xs font-semibold hover:bg-[#0667a9] transition shadow-xs flex items-center gap-1.5"
               >
                 <Truck className="w-4 h-4" />
                 <span>Emitir Guía y Ejecutar Traspaso</span>
@@ -353,7 +351,7 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
               placeholder="Buscar por guía o almacén..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#087DCD]"
             />
           </div>
         </div>
@@ -395,10 +393,10 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
                       <div className="flex items-center gap-1.5">
                         <span className="font-medium">{tra.sourceWarehouse}</span>
                         <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                        <span className="font-semibold text-blue-900">{tra.targetWarehouse}</span>
+                        <span className="font-semibold text-[#087DCD]">{tra.targetWarehouse}</span>
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-right font-mono font-bold text-blue-800 tabular-nums">
+                    <td className="py-3 px-4 text-right font-mono font-bold text-[#087DCD] tabular-nums">
                       {tra.quantity}
                     </td>
                     <td className="py-3 px-4 text-slate-700 text-[11px]">
@@ -406,8 +404,8 @@ export const TransfersModule: React.FC<TransfersModuleProps> = ({
                       <div className="text-[10px] text-slate-400">Aut: {tra.authorizedBy}</div>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                        <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#087DCD] bg-[#087DCD]/10 px-2 py-0.5 rounded border border-[#087DCD]/20">
+                        <CheckCircle2 className="w-3 h-3 text-[#087DCD]" />
                         <span>{tra.status}</span>
                       </span>
                     </td>
